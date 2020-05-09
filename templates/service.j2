@@ -9,39 +9,43 @@ After=network-online.target
 Restart=always
 RestartSec=5
 TimeoutSec=5
+{% if canary_redirect_stdout|bool %}
+StandardOutput=file:{{ canary_promtail_file_path }}
+StandardError=journal
+{% endif %}
 User={{ canary_system_user }}
 Group={{ canary_system_group }}
 ExecStart=/usr/local/bin/loki-canary \
-{% if canary_config_buckets|length -%}
+{% if canary_config_buckets|length %}
     -buckets {{ canary_config_buckets }} \
-{%- endif %}
-{% if canary_conig_interval|length -%}
+{% endif %}
+{% if canary_conig_interval|length %}
     -interval {{ canary_conig_interval }} \
-{%- endif %}
-{% if canary_config_labelname|length -%}
+{% endif %}
+{% if canary_config_labelname|length %}
     -labelname {{ canary_config_labelname }} \
-{%- endif %}
-{% if canary_config_labelvalue|length -%}
+{% endif %}
+{% if canary_config_labelvalue|length %}
     -labelvalue {{ canary_config_labelvalue }} \
-{%- endif %}
-{% if canary_config_pruneinterval|length -%}
+{% endif %}
+{% if canary_config_pruneinterval|length %}
     -pruneinterval {{ canary_config_pruneinterval }} \
-{%- endif %}
-{% if canary_config_size|length -%}
+{% endif %}
+{% if canary_config_size|length %}
     -size {{ canary_config_size }} \
-{%- endif %}
-{% if canary_config_wait|length -%}
+{% endif %}
+{% if canary_config_wait|length %}
     -wait {{ canary_config_wait }} \
-{%- endif %}
-{% if canary_config_user|length -%}
+{% endif %}
+{% if canary_config_user|length %}
     -user {{ canary_config_user }} \
-{%- endif %}
-{% if canary_config_pass|length -%}
+{% endif %}
+{% if canary_config_pass|length %}
     -user {{ canary_config_pass }} \
-{%- endif %}
-{% if canary_config_tls | bool -%}
+{% endif %}
+{% if canary_config_tls | bool %}
     -tls \
-{%- endif %}
+{% endif %}
     -port {{ canary_config_port }} \
     -addr {{ canary_config_addr }}
 
