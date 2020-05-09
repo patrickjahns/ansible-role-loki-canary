@@ -1,0 +1,20 @@
+---
+canary_version: "1.4.1"
+canary_dist_url: "https://github.com/grafana/loki/releases/download/v{{ canary_version }}/loki-canary-{{ go_system }}-{{ go_arch }}.zip"
+canary_system_user: loki-canary
+canary_system_group: "{{ canary_system_user }}"
+canary_install_dir: /opt/loki-canary
+canary_tmp_dir: /tmp
+
+canary_config_buckets: ""
+canary_conig_interval: ""
+canary_config_labelname: ""
+canary_config_labelvalue: ""
+canary_config_pruneinterval: ""
+canary_config_size: ""
+canary_config_wait: ""
+canary_config_user: ""
+canary_config_pass: ""
+canary_config_tls: False
+canary_config_port: 3500
+canary_config_addr: ""

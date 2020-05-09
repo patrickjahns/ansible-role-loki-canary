@@ -1,0 +1,49 @@
+{{ ansible_managed | comment }}
+
+
+[Unit]
+Description=loki-canary
+After=network-online.target
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutSec=5
+User={{ canary_system_user }}
+Group={{ canary_system_group }}
+ExecStart=/usr/local/bin/loki-canary \
+{% if canary_config_buckets|length -%}
+    -buckets {{ canary_config_buckets }} \
+{%- endif %}
+{% if canary_conig_interval|length -%}
+    -interval {{ canary_conig_interval }} \
+{%- endif %}
+{% if canary_config_labelname|length -%}
+    -labelname {{ canary_config_labelname }} \
+{%- endif %}
+{% if canary_config_labelvalue|length -%}
+    -labelvalue {{ canary_config_labelvalue }} \
+{%- endif %}
+{% if canary_config_pruneinterval|length -%}
+    -pruneinterval {{ canary_config_pruneinterval }} \
+{%- endif %}
+{% if canary_config_size|length -%}
+    -size {{ canary_config_size }} \
+{%- endif %}
+{% if canary_config_wait|length -%}
+    -wait {{ canary_config_wait }} \
+{%- endif %}
+{% if canary_config_user|length -%}
+    -user {{ canary_config_user }} \
+{%- endif %}
+{% if canary_config_pass|length -%}
+    -user {{ canary_config_pass }} \
+{%- endif %}
+{% if canary_config_tls | bool -%}
+    -tls \
+{%- endif %}
+    -port {{ canary_config_port }} \
+    -addr {{ canary_config_addr }}
+
+[Install]
+WantedBy=multi-user.target

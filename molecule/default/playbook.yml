@@ -1,0 +1,7 @@
+---
+- hosts: all
+  any_errors_fatal: true
+  roles:
+    - role: ansible-role-loki-canary
+      vars:
+        canary_config_addr: "localhost:3100"

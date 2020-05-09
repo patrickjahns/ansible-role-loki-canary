@@ -1,0 +1,22 @@
+---
+- include: preflight.yml
+  tags:
+    - canary_install
+    - canary
+
+- include: install.yml
+  become: True
+  tags:
+    - canary_install
+    - canary
+
+- name: Ensure canary service is started and enabled
+  become: True
+  systemd:
+    daemon_reload: True
+    name: loki-canary
+    state: started
+    enabled: True
+  tags:
+    - canary_run
+    - canary

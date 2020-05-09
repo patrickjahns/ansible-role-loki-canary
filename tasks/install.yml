@@ -1,0 +1,109 @@
+---
+- name: Ensure unzip package is available
+  package:
+    name: unzip
+    state: present
+    update_cache: True
+  tags:
+    - canary
+    - canary_install
+
+- name: "Ensure {{ canary_system_group }} group exists"
+  group:
+    name: "{{ canary_system_group }}"
+    state: present
+    system: True
+  tags:
+    - canary
+    - canary_install
+  when: canary_system_group != "root"
+
+- name: "Ensure {{ canary_system_user }} user exists"
+  user:
+    name: "{{ canary_system_user }}"
+    group: "{{ canary_system_group }}"
+    append: True
+    shell: /usr/sbin/nologin
+    system: True
+    createhome: False
+    home: /
+  tags:
+    - canary
+    - canary_install
+  when: canary_system_user != "root"
+
+- name: Ensure /usr/local/bin exists
+  file:
+    path: /usr/local/bin
+    state: directory
+    mode: 0755
+  tags:
+    - canary
+    - canary_install
+
+- name: Ensure application dirs exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ canary_system_user }}"
+    group: "{{ canary_system_group }}"
+    mode: 0755
+  tags:
+    - canary
+    - canary_install
+  with_items:
+    - "{{ canary_install_dir }}"
+    - "{{ canary_install_dir }}/{{ canary_version }}"
+
+- name: Check canary binary
+  stat:
+    path: "{{ canary_install_dir }}/{{ canary_version }}/loki-canary-{{ go_system }}-{{ go_arch }}"
+  register: canary_binary
+  tags:
+    - canary
+    - canary_install
+
+- name: Download canary binaries
+  get_url:
+    url: "{{ canary_dist_url }}"
+    dest: "{{ canary_tmp_dir }}/{{ canary_version }}_canary-{{ go_system }}-{{ go_arch }}.zip"
+    force: True
+    checksum: "sha256:{{ __canary_checksum }}"
+  tags:
+    - canary
+    - canary_install
+  when: not canary_binary.stat.exists
+
+- name: Unpack canary binaries
+  ignore_errors: "{{ ansible_check_mode }}"
+  unarchive:
+    src: "{{ canary_tmp_dir }}/{{ canary_version }}_canary-{{ go_system }}-{{ go_arch }}.zip"
+    dest: "{{ canary_install_dir }}/{{ canary_version }}"
+    creates: "{{ canary_install_dir }}/{{ canary_version }}/loki-canary-{{ go_system }}-{{ go_arch }}"
+    remote_src: True
+  tags:
+    - canary
+    - canary_install
+
+- name: Create symlink to latest version
+  notify:
+    - Restart loki-canary
+  ignore_errors: "{{ ansible_check_mode }}"
+  file:
+    state: link
+    src: "{{ canary_install_dir }}/{{ canary_version }}/loki-canary-{{ go_system }}-{{ go_arch }}"
+    dest: /usr/local/bin/loki-canary
+    mode: 0755
+  tags:
+    - canary
+    - canary_install
+
+- name: Create systemd service unit
+  notify:
+    - Restart loki-canary
+  template:
+    src: service.j2
+    dest: /etc/systemd/system/loki-canary.service
+  tags:
+    - canary
+    - canary_install

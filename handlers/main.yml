@@ -1,0 +1,8 @@
+---
+- name: Restart loki-canary
+  systemd:
+    name: loki-canary
+    state: restarted
+    daemon_reload: True
+  tags:
+    - canary
