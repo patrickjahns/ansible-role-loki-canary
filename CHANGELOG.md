@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/patrickjahns/ansible-role-loki-canary/tree/1.2.0) (2020-05-10)
+
+[Full Changelog](https://github.com/patrickjahns/ansible-role-loki-canary/compare/1.1.0...1.2.0)
+
+**Implemented enhancements:**
+
+- feat: add support for ubuntu disco [\#4](https://github.com/patrickjahns/ansible-role-loki-canary/pull/4) ([patrickjahns](https://github.com/patrickjahns))
+
 ## [1.1.0](https://github.com/patrickjahns/ansible-role-loki-canary/tree/1.1.0) (2020-05-10)
 
 [Full Changelog](https://github.com/patrickjahns/ansible-role-loki-canary/compare/1.0.0...1.1.0)
