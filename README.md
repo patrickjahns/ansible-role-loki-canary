@@ -39,6 +39,10 @@ For configuration values related to canary itself, please refer to the [canary s
 | `canary_config_wait`    | ""            | [See canary configuration](https://github.com/grafana/loki/blob/master/docs/operations/loki-canary.md#configuration) |
 | `canary_config_user`    | ""            | [See canary configuration](https://github.com/grafana/loki/blob/master/docs/operations/loki-canary.md#configuration) |
 | `canary_config_pass`    | ""            | [See canary configuration](https://github.com/grafana/loki/blob/master/docs/operations/loki-canary.md#configuration) |
+| `canary_redirect_stdout` | "False"      | Enable workaround to use canary with systemd |
+| `canary_promtail_sd_file`   | "/etc/promtail/file_sd/canary.yml" | File service discovery file to write for promtail to discover |
+| `canary_promtail_file_path` | "/tmp/canary.log" | Logfile to be written by canary and to be parsed by promtail |
+
 
 ## Role Tags
 
@@ -76,6 +80,20 @@ More complex example, that configures [several parameters of loki canary](https:
         canary_config_pass: "test"
         canary_config_labelname: "canary_host"
         canary_config_labelname: {{ ansible_hostname }}
+```
+
+Example to setup canary with systemd to [workaround upstream label issues](https://github.com/grafana/loki/issues/1435)
+
+```yaml
+---
+- hosts: all
+  roles:
+    - role: patrickjahns.loki_canary
+      vars: 
+        canary_config_addr: "http://127.0.0.1:3100"
+        canary_redirect_stdout: True
+        canary_config_labelname: "canary_host"
+        canary_config_labelvalue: "{{ ansible_hostname }}"
 ```
 
 ## Local Testing
