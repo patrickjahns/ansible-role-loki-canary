@@ -1,0 +1,6 @@
+- targets:
+    - localhost
+  labels:
+    __path__: {{ canary_promtail_file_path }}
+    stream: stdout
+    {{ canary_config_labelname }}: {{ canary_config_labelvalue }}

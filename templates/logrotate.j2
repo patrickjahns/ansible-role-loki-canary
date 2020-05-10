@@ -1,0 +1,9 @@
+{{ canary_promtail_file_path }}
+{
+    su {{ canary_system_user }} {{ canary_system_group }}
+    rotate 0
+    daily
+    missingok
+    copytruncate
+    notifempty
+}

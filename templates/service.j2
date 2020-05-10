@@ -9,13 +9,9 @@ After=network-online.target
 Restart=always
 RestartSec=5
 TimeoutSec=5
-{% if canary_redirect_stdout|bool %}
-StandardOutput=file:{{ canary_promtail_file_path }}
-StandardError=journal
-{% endif %}
 User={{ canary_system_user }}
 Group={{ canary_system_group }}
-ExecStart=/usr/local/bin/loki-canary \
+ExecStart=/bin/sh -c "exec /usr/local/bin/loki-canary \
 {% if canary_config_buckets|length %}
     -buckets {{ canary_config_buckets }} \
 {% endif %}
@@ -47,7 +43,11 @@ ExecStart=/usr/local/bin/loki-canary \
     -tls \
 {% endif %}
     -port {{ canary_config_port }} \
-    -addr {{ canary_config_addr }}
+{% if canary_redirect_stdout|bool %}
+    -addr {{ canary_config_addr }} >> {{ canary_promtail_file_path }}"
+{% else %}
+    -addr {{ canary_config_addr }}"
+{% endif %}
 
 [Install]
 WantedBy=multi-user.target

@@ -98,6 +98,20 @@
     - canary
     - canary_install
 
+- name: Create promtail static configuration to discover target
+  template:
+    src: promtail_sd_config.j2
+    dest: "{{ canary_promtail_sd_file }}"
+    mode: 0755
+  when: canary_redirect_stdout|bool
+
+- name: Create logrotate to ensure canary log files does not grow too large
+  template:
+    src: logrotate.j2
+    dest: "/etc/logrotate.d/loki-canary"
+    mode: 0644
+  when: canary_redirect_stdout|bool
+
 - name: Create systemd service unit
   notify:
     - Restart loki-canary

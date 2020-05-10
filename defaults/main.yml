@@ -18,3 +18,7 @@ canary_config_pass: ""
 canary_config_tls: False
 canary_config_port: 3500
 canary_config_addr: ""
+
+canary_redirect_stdout: False
+canary_promtail_sd_file: "/etc/promtail/file_sd/canary.yml"
+canary_promtail_file_path: "/tmp/canary.log"
