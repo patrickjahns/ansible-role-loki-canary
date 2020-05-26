@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1](https://github.com/patrickjahns/ansible-role-loki-canary/tree/1.2.1) (2020-05-26)
+
+[Full Changelog](https://github.com/patrickjahns/ansible-role-loki-canary/compare/1.2.0...1.2.1)
+
+**Implemented enhancements:**
+
+- canary 1.5.0 [\#7](https://github.com/patrickjahns/ansible-role-loki-canary/pull/7) ([patrickjahns](https://github.com/patrickjahns))
+
 ## [1.2.0](https://github.com/patrickjahns/ansible-role-loki-canary/tree/1.2.0) (2020-05-10)
 
 [Full Changelog](https://github.com/patrickjahns/ansible-role-loki-canary/compare/1.1.0...1.2.0)
