@@ -23,7 +23,7 @@ For configuration values related to canary itself, please refer to the [canary s
 
 | Name                    | Default Value | Description                        |
 | ----------------------- | ------------- | -----------------------------------|
-| `canary_version`        | "1.4.1        | canary package version. Also accepts *latest* as parameter. |
+| `canary_version`        | "1.5.0"       | canary package version. Also accepts *latest* as parameter. |
 | `canary_system_user`    | loki-canary   | User the canary process will run at |
 | `canary_system_group`   | "{{ canary_system_user }}" | Group of the *canary* user |
 | `canary_install_dir`    | "/opt/loki-canary" | Directory where canary binaries will be installed |
