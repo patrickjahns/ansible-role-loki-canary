@@ -69,6 +69,7 @@
     dest: "{{ canary_tmp_dir }}/{{ canary_version }}_canary-{{ go_system }}-{{ go_arch }}.zip"
     force: True
     checksum: "sha256:{{ __canary_checksum }}"
+    mode: 0755
   tags:
     - canary
     - canary_install
@@ -81,6 +82,7 @@
     dest: "{{ canary_install_dir }}/{{ canary_version }}"
     creates: "{{ canary_install_dir }}/{{ canary_version }}/loki-canary-{{ go_system }}-{{ go_arch }}"
     remote_src: True
+    mode: 0755
   tags:
     - canary
     - canary_install
@@ -118,6 +120,7 @@
   template:
     src: service.j2
     dest: /etc/systemd/system/loki-canary.service
+    mode: 0644
   tags:
     - canary
     - canary_install
