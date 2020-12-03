@@ -33,6 +33,10 @@ jobs:
           - ANSIBLE: 2.10
             MOLECULE_DISTRO: debian10
     steps:
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
       - name: Run molecule
         env:
           ANSIBLE: ${{ matrix.ANSIBLE }}
