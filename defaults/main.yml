@@ -1,5 +1,5 @@
 ---
-canary_version: "1.6.1"
+canary_version: "2.0.0"
 canary_dist_url: "https://github.com/grafana/loki/releases/download/v{{ canary_version }}/loki-canary-{{ go_system }}-{{ go_arch }}.zip"
 canary_system_user: loki-canary
 canary_system_group: "{{ canary_system_user }}"
