@@ -25,12 +25,12 @@ jobs:
         include:
           - ANSIBLE: 2.8
           - ANSIBLE: 2.9
-          - ANSIBLE: 2.10
-          - ANSIBLE: 2.10
+          - ANSIBLE: "2.10"
+          - ANSIBLE: "2.10"
             MOLECULE_DISTRO: ubuntu1804
-          - ANSIBLE: 2.10
+          - ANSIBLE: "2.10"
             MOLECULE_DISTRO: ubuntu2004
-          - ANSIBLE: 2.10
+          - ANSIBLE: "2.10"
             MOLECULE_DISTRO: debian10
     steps:
       - uses: actions/checkout@v2
