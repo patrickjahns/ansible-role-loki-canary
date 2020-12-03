@@ -37,12 +37,14 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.7
+      - name: Install tox
+        run: |
+          python -m pip install --upgrade pip
+          pip install tox tox-gh-actions
       - name: Run molecule
         env:
           ANSIBLE: ${{ matrix.ANSIBLE }}
           MOLECULE_DISTRO: ${{ matrix.MOLECULE_DISTRO }}
         run: |
-          python -m pip install --upgrade pip
-          pip install tox tox-gh-actions
           tox -- molecule test --all --destroy always
 
