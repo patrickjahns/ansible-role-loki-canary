@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.3.0](https://github.com/patrickjahns/ansible-role-loki-canary/tree/1.3.0) (2020-12-03)
+
+[Full Changelog](https://github.com/patrickjahns/ansible-role-loki-canary/compare/1.2.2...1.3.0)
+
+**Merged pull requests:**
+
+- chore: bump canary to version 2.0.0 [\#15](https://github.com/patrickjahns/ansible-role-loki-canary/pull/15) ([patrickjahns](https://github.com/patrickjahns))
+- ci: notify galaxy on release [\#14](https://github.com/patrickjahns/ansible-role-loki-canary/pull/14) ([patrickjahns](https://github.com/patrickjahns))
+- move to github actions [\#12](https://github.com/patrickjahns/ansible-role-loki-canary/pull/12) ([patrickjahns](https://github.com/patrickjahns))
+
 ## [1.2.2](https://github.com/patrickjahns/ansible-role-loki-canary/tree/1.2.2) (2020-09-12)
 
 [Full Changelog](https://github.com/patrickjahns/ansible-role-loki-canary/compare/1.2.1...1.2.2)
